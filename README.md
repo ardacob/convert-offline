@@ -1,6 +1,6 @@
 # Convert
 
-Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.2.0 deneme sürümünün** kaynak kodunu içerir.
+Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.2.0 deneme sürümünün** kaynak kodunu içerir.
 
 ## Sürüm geçmişi
 
@@ -17,7 +17,7 @@ Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştür
 
 - Dosya seçme, hedef biçim önerisi, ön izleme ve çıktı paylaşma/kaydetme.
 - Açık, koyu ve saydamlığı ayarlanabilir Liquid Glass temaları.
-- Ayarlar bölümünde sürüm, yerel olarak saklanan düzenlenebilir yapımcı adı ve biçim durumları.
+- Ayarlar bölümünde sürüm, varsayılanı Arda Çobanoğlu olan düzenlenebilir yapımcı adı ve biçim durumları.
 - Görsel/PDF dönüşümleri ve sistem çerçevelerinin desteklediği bazı ses/video dönüşümleri. Tam destek kaynak biçime ve işletim sisteminin yerel kodlayıcılarına bağlıdır.
 
 **Convertio biçim eşitliği henüz yoktur.** MP3 çıktısı, pek çok ofis/özel biçim ve Windows/Android uygulaması bu sürümde bulunmaz. Ayarlar ekranındaki biçim listesi destek planını gösterir; listede görünmek çalışan bir dönüşüm anlamına gelmez. Ayrıntılar için [FORMAT_SCOPE.md](FORMAT_SCOPE.md) dosyasına bakın.

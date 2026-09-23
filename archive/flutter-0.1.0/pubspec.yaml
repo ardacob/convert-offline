@@ -1,0 +1,31 @@
+name: convert_app
+description: Offline dosya donusturucu
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.12.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  file_picker: ^10.3.10
+  ffmpeg_kit_extended_flutter: ^0.6.2
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  pdf: ^3.11.3
+  pdfx: ^2.9.2
+  share_plus: ^12.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+ffmpeg_kit_extended_config:
+  type: video
+  gpl: false
+  small: false

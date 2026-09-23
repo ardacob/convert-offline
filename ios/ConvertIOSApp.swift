@@ -166,13 +166,11 @@ struct SettingsView: View {
     @AppStorage("convert.maker") private var maker = "Arda Çobanoğlu"
     @AppStorage("convert.theme") private var theme = "glass"
     @AppStorage("convert.glassTransparency") private var glassTransparency = 0.0
-    private let images = ["jpg/jpeg", "png", "gif", "webp", "avif", "heif/heic", "svg", "ai", "eps", "cdr", "tiff/tif", "bmp", "tga", "exr", "raw", "dng", "cr2/cr3", "nef", "arw", "psd", "xcf", "indd", "ico", "jxl", "pdf"]
-    private let documents = ["pdf", "docx/doc", "xlsx/xls", "pptx/ppt", "txt", "rtf", "odt", "ods", "odp", "csv", "md", "html/htm", "xml", "epub", "mobi", "pages", "numbers", "key", "wps", "tex"]
     var body: some View {
         NavigationStack {
             Form {
                 Section("Uygulama") {
-                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.0")
+                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.1")
                     TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
                 }
                 Section("Görünüm") {
@@ -187,16 +185,6 @@ struct SettingsView: View {
                             Slider(value: $glassTransparency, in: 0...1)
                             Text("\(Int(glassTransparency * 100))%")
                         }
-                    }
-                }
-                Section("Görsel biçimleri") {
-                    ForEach(images, id: \.self) { name in
-                        LabeledContent(".\(name)", value: imageStatus(name))
-                    }
-                }
-                Section("Belge biçimleri") {
-                    ForEach(documents, id: \.self) { name in
-                        LabeledContent(".\(name)", value: name == "pdf" ? "Görsel ↔ PDF" : "Planlandı")
                     }
                 }
                 Section {
@@ -215,14 +203,7 @@ struct SettingsView: View {
         }
     }
 
-    private func imageStatus(_ name: String) -> String {
-        if name == "pdf" { return "Dönüştürme" }
-        if name == "heif/heic" { return "HEIC hedef / kaynak" }
-        let ext = name.components(separatedBy: "/")[0]
-        if FormatCatalog.writableImages.contains(ext) { return "Dönüştürme" }
-        if ["webp", "svg", "jxl", "dng", "cr2", "nef", "arw", "ico", "raw"].contains(ext) { return "Kaynak / cihaza bağlı" }
-        return "Planlandı"
-    }
+
 }
 
 private extension View {

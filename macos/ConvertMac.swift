@@ -87,28 +87,6 @@ struct ConvertView: View {
                             .background(.indigo.opacity(0.09), in: Capsule())
                     }
 
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack {
-                            Text("Görünüm").font(.subheadline.weight(.semibold))
-                            Spacer()
-                            Picker("Görünüm", selection: $theme) {
-                                Text("Açık").tag("light")
-                                Text("Koyu").tag("dark")
-                                Text("Liquid Glass").tag("glass")
-                            }
-                            .labelsHidden().pickerStyle(.segmented).frame(width: 350)
-                        }
-                        if theme == "glass" {
-                            HStack {
-                                Text("Saydamlık").font(.subheadline)
-                                Slider(value: $glassTransparency, in: 0.1...1.0)
-                                Text("\(Int(glassTransparency * 100))%")
-                                    .monospacedDigit().frame(width: 42)
-                            }
-                        }
-                    }
-                    .cardStyle(theme: theme, transparency: glassTransparency)
-
                     VStack(alignment: .leading, spacing: 16) {
                         Text("1  DOSYA").font(.caption.bold()).foregroundStyle(.indigo)
                         HStack(spacing: 18) {
@@ -305,13 +283,35 @@ struct SettingsView: View {
                                         in: RoundedRectangle(cornerRadius: 17))
                         VStack(alignment: .leading) {
                             Text("Ayarlar").font(.largeTitle.bold())
-                            Text("Uygulama bilgileri")
+                            Text("Görünüm ve uygulama bilgileri")
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Text("Görünüm").font(.subheadline.weight(.semibold))
+                            Spacer()
+                            Picker("Görünüm", selection: $theme) {
+                                Text("Açık").tag("light")
+                                Text("Koyu").tag("dark")
+                                Text("Liquid Glass").tag("glass")
+                            }
+                            .labelsHidden().pickerStyle(.segmented).frame(width: 350)
+                        }
+                        if theme == "glass" {
+                            HStack {
+                                Text("Saydamlık").font(.subheadline)
+                                Slider(value: $glassTransparency, in: 0.1...1.0)
+                                Text("\(Int(glassTransparency * 100))%")
+                                    .monospacedDigit().frame(width: 42)
+                            }
+                        }
+                    }
+                    .cardStyle(theme: theme, transparency: glassTransparency)
+
                     VStack(alignment: .leading, spacing: 14) {
                         Text("UYGULAMA").font(.caption.bold()).foregroundStyle(.indigo)
-                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.3")
+                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.4")
                         HStack {
                             Text("Yapımcı")
                             Spacer()

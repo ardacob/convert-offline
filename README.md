@@ -6,9 +6,9 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 
 - [Değişiklik günlüğü](CHANGELOG.md): her doğrulanmış sürümdeki yenilikler ve sınırlamalar.
 - [v0.1.0 — Flutter 0.1.0+1 prototipi](https://github.com/ardacob/convert-offline/releases/tag/v0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
-- [v0.2.2 — yeni uygulama logosu](https://github.com/ardacob/convert-offline/releases/tag/v0.2.2): iPhone ve macOS uygulama simgeleri yenilendi.
-- [v0.2.1 — arayüz düzenlemesi](https://github.com/ardacob/convert-offline/releases/tag/v0.2.1): ayarlardan statik biçim listeleri kaldırıldı; hedefler seçilen dosyaya göre gösteriliyor.
 - [v0.2.0 — macOS ve iPhone](https://github.com/ardacob/convert-offline/releases/tag/v0.2.0): `ios/` ve `macos/` kaynakları; macOS DMG sürüm eki.
+- [v0.2.1 — arayüz düzenlemesi](https://github.com/ardacob/convert-offline/releases/tag/v0.2.1): ayarlardan statik biçim listeleri kaldırıldı; hedefler seçilen dosyaya göre gösteriliyor.
+- [v0.2.2 — yeni uygulama logosu](https://github.com/ardacob/convert-offline/releases/tag/v0.2.2): iPhone ve macOS uygulama simgeleri yenilendi.
 
 ## Platformlar
 

@@ -22,8 +22,9 @@ struct RootView: View {
 }
 
 struct ConverterView: View {
-    @AppStorage("convert.theme") private var theme = "light"
-    @AppStorage("convert.glassOpacity") private var glassOpacity = 0.65
+    @Environment(\.colorScheme) private var systemColorScheme
+    @AppStorage("convert.theme") private var theme = "glass"
+    @AppStorage("convert.glassTransparency") private var glassTransparency = 0.0
     @State private var source: URL?
     @State private var displayName = ""
     @State private var preview: UIImage?
@@ -34,7 +35,7 @@ struct ConverterView: View {
     @State private var busy = false
 
     private var choices: [String] { source.map { FormatCatalog.choices(for: $0) } ?? [] }
-    private var dark: Bool { theme == "dark" }
+    private var dark: Bool { theme == "dark" || (theme == "glass" && systemColorScheme == .dark) }
 
     var body: some View {
         NavigationStack {
@@ -44,7 +45,40 @@ struct ConverterView: View {
                                : [Color(red: 0.91, green: 0.92, blue: 1), Color(red: 0.94, green: 0.99, blue: 1)],
                                startPoint: .topLeading, endPoint: .bottomTrailing)
                     .ignoresSafeArea()
-                ScrollView {
+                if theme == "glass" {
+                    Circle().fill(Color.indigo.opacity(0.28)).frame(width: 340)
+                        .blur(radius: 55).offset(x: 165, y: -260)
+                    Circle().fill(Color.cyan.opacity(0.22)).frame(width: 290)
+                        .blur(radius: 50).offset(x: -180, y: 280)
+                }
+                converterContent
+            }
+            .navigationTitle("Convert")
+            .fileImporter(isPresented: $picking, allowedContentTypes: [.item]) { response in
+                do {
+                    let picked = try response.get()
+                    let scoped = picked.startAccessingSecurityScopedResource()
+                    defer { if scoped { picked.stopAccessingSecurityScopedResource() } }
+                    let tempFolder = FileManager.default.temporaryDirectory
+                        .appendingPathComponent(UUID().uuidString, isDirectory: true)
+                    try FileManager.default.createDirectory(at: tempFolder, withIntermediateDirectories: true)
+                    let local = tempFolder.appendingPathComponent(picked.lastPathComponent)
+                    try FileManager.default.copyItem(at: picked, to: local)
+                    source = local
+                    displayName = picked.lastPathComponent
+                    preview = FormatCatalog.preview(for: local)
+                    target = FormatCatalog.choices(for: local).first ?? ""
+                    result = nil
+                    status = "Dönüştürmeye hazır"
+                } catch { status = "Dosya açılamadı: \(error.localizedDescription)" }
+            }
+        }
+        .fontDesign(.default)
+        .preferredColorScheme(theme == "glass" ? nil : (dark ? .dark : .light))
+    }
+
+    private var converterContent: some View {
+        ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
                         HStack(spacing: 12) {
                             Image(systemName: "arrow.triangle.2.circlepath")
@@ -74,9 +108,9 @@ struct ConverterView: View {
                                 Label(source == nil ? "Dosya seç" : "Dosyayı değiştir", systemImage: "folder")
                                     .frame(maxWidth: .infinity)
                             }
-                            .buttonStyle(.bordered).tint(.indigo).disabled(busy)
+                            .secondaryActionStyle(theme: theme).tint(.indigo).disabled(busy)
                         }
-                        .cardStyle(theme: theme, opacity: glassOpacity)
+                        .cardStyle(theme: theme, transparency: glassTransparency)
 
                         VStack(alignment: .leading, spacing: 14) {
                             Text("2  DÖNÜŞTÜR").font(.caption.bold()).foregroundStyle(.indigo)
@@ -92,12 +126,12 @@ struct ConverterView: View {
                                     Label("Dönüştür", systemImage: "arrow.triangle.2.circlepath")
                                         .frame(maxWidth: .infinity)
                                 }
-                                .buttonStyle(.borderedProminent).tint(.indigo)
+                                .primaryActionStyle(theme: theme).tint(.indigo)
                                 .disabled(busy || target.isEmpty)
                             }
                             if busy { ProgressView() }
                         }
-                        .cardStyle(theme: theme, opacity: glassOpacity)
+                        .cardStyle(theme: theme, transparency: glassTransparency)
 
                         VStack(alignment: .leading, spacing: 12) {
                             Text(status).font(.subheadline).textSelection(.enabled)
@@ -105,35 +139,13 @@ struct ConverterView: View {
                                 ShareLink(item: result) {
                                     Label("Paylaş / Dosyalara Kaydet", systemImage: "square.and.arrow.up")
                                 }
+                                .secondaryActionStyle(theme: theme)
                             }
                         }
-                        .cardStyle(theme: theme, opacity: glassOpacity)
+                        .cardStyle(theme: theme, transparency: glassTransparency)
                     }
                     .padding(18)
-                }
-            }
-            .navigationTitle("Convert")
-            .fileImporter(isPresented: $picking, allowedContentTypes: [.item]) { response in
-                do {
-                    let picked = try response.get()
-                    let scoped = picked.startAccessingSecurityScopedResource()
-                    defer { if scoped { picked.stopAccessingSecurityScopedResource() } }
-                    let tempFolder = FileManager.default.temporaryDirectory
-                        .appendingPathComponent(UUID().uuidString, isDirectory: true)
-                    try FileManager.default.createDirectory(at: tempFolder, withIntermediateDirectories: true)
-                    let local = tempFolder.appendingPathComponent(picked.lastPathComponent)
-                    try FileManager.default.copyItem(at: picked, to: local)
-                    source = local
-                    displayName = picked.lastPathComponent
-                    preview = FormatCatalog.preview(for: local)
-                    target = FormatCatalog.choices(for: local).first ?? ""
-                    result = nil
-                    status = "Dönüştürmeye hazır"
-                } catch { status = "Dosya açılamadı: \(error.localizedDescription)" }
-            }
         }
-        .fontDesign(.default)
-        .preferredColorScheme(dark ? .dark : .light)
     }
 
     @MainActor private func convert() async {
@@ -151,9 +163,9 @@ struct ConverterView: View {
 }
 
 struct SettingsView: View {
-    @AppStorage("convert.maker") private var maker = ""
-    @AppStorage("convert.theme") private var theme = "light"
-    @AppStorage("convert.glassOpacity") private var glassOpacity = 0.65
+    @AppStorage("convert.maker") private var maker = "Arda Çobanoğlu"
+    @AppStorage("convert.theme") private var theme = "glass"
+    @AppStorage("convert.glassTransparency") private var glassTransparency = 0.0
     private let images = ["jpg/jpeg", "png", "gif", "webp", "avif", "heif/heic", "svg", "ai", "eps", "cdr", "tiff/tif", "bmp", "tga", "exr", "raw", "dng", "cr2/cr3", "nef", "arw", "psd", "xcf", "indd", "ico", "jxl", "pdf"]
     private let documents = ["pdf", "docx/doc", "xlsx/xls", "pptx/ppt", "txt", "rtf", "odt", "ods", "odp", "csv", "md", "html/htm", "xml", "epub", "mobi", "pages", "numbers", "key", "wps", "tex"]
     var body: some View {
@@ -172,8 +184,8 @@ struct SettingsView: View {
                     if theme == "glass" {
                         HStack {
                             Text("Saydamlık")
-                            Slider(value: $glassOpacity, in: 0.1...1)
-                            Text("\(Int(glassOpacity * 100))%")
+                            Slider(value: $glassTransparency, in: 0...1)
+                            Text("\(Int(glassTransparency * 100))%")
                         }
                     }
                 }
@@ -195,7 +207,12 @@ struct SettingsView: View {
             .navigationTitle("Ayarlar")
         }
         .fontDesign(.default)
-        .preferredColorScheme(theme == "dark" ? .dark : .light)
+        .preferredColorScheme(theme == "glass" ? nil : (theme == "dark" ? .dark : .light))
+        .onAppear {
+            if maker.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                maker = "Arda Çobanoğlu"
+            }
+        }
     }
 
     private func imageStatus(_ name: String) -> String {
@@ -209,18 +226,38 @@ struct SettingsView: View {
 }
 
 private extension View {
-    @ViewBuilder func cardStyle(theme: String, opacity: Double) -> some View {
+    @ViewBuilder func cardStyle(theme: String, transparency: Double) -> some View {
         let base = self.padding(18).frame(maxWidth: .infinity, alignment: .leading)
         if theme == "glass" {
             if #available(iOS 26.0, *) {
-                base.background(Color.white.opacity(0.7 * (1 - opacity)), in: RoundedRectangle(cornerRadius: 23))
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 23))
+                base.background {
+                    RoundedRectangle(cornerRadius: 23)
+                        .fill(.clear)
+                        .glassEffect(.regular, in: .rect(cornerRadius: 23))
+                        .opacity(1 - transparency)
+                }
             } else {
                 base.background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 23))
             }
         } else {
             base.background(theme == "dark" ? Color(red: 0.15, green: 0.16, blue: 0.25) : .white,
                             in: RoundedRectangle(cornerRadius: 23))
+        }
+    }
+
+    @ViewBuilder func secondaryActionStyle(theme: String) -> some View {
+        if #available(iOS 26.0, *), theme == "glass" {
+            self.buttonStyle(.glass)
+        } else {
+            self.buttonStyle(.bordered)
+        }
+    }
+
+    @ViewBuilder func primaryActionStyle(theme: String) -> some View {
+        if #available(iOS 26.0, *), theme == "glass" {
+            self.buttonStyle(.glassProminent)
+        } else {
+            self.buttonStyle(.borderedProminent)
         }
     }
 }

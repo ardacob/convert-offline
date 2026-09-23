@@ -302,7 +302,7 @@ struct SettingsView: View {
                     }
                     VStack(alignment: .leading, spacing: 14) {
                         Text("UYGULAMA").font(.caption.bold()).foregroundStyle(.indigo)
-                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.1")
+                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.2")
                         HStack {
                             Text("Yapımcı")
                             Spacer()

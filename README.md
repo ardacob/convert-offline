@@ -14,7 +14,7 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 ## Platformlar
 
 - **iPhone:** `ios/ConvertIOS.xcodeproj` dosyasını Xcode 27 ile açın. iOS 17 veya üstü hedeflenir. Signing & Capabilities bölümünde kendi Apple geliştirme takımınızı seçip cihazınıza çalıştırın.
-- **macOS:** `macos/ConvertMac.swift` kaynak dosyası. Xcode'da yeni bir macOS SwiftUI App projesi oluşturup varsayılan uygulama dosyasının yerine bu dosyayı koyarak derleyebilirsiniz. Apple Silicon Mac üzerinde denendi.
+- **macOS:** `macos/ConvertMac.swift` kaynak dosyası. Xcode'da yeni bir macOS SwiftUI App projesi oluşturup varsayılan uygulama dosyasının yerine bu dosyayı koyun. `macos/ConvertLogo.png` dosyasını uygulama kaynaklarına, `macos/Convert.icns` dosyasını uygulama simgesi olarak ekleyip derleyin. Apple Silicon Mac üzerinde denendi.
 
 ## Mevcut özellikler
 

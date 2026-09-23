@@ -1,6 +1,6 @@
 # Değişiklik günlüğü
 
-Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. İlk yerel uygulama sürümü önce yanlışlıkla `0.5.0` olarak etiketlenmiş, arada `0.2.0`–`0.4.0` yayınları olmadığı için `0.2.0` olarak düzeltilmiştir; uygulama özellikleri değişmemiştir. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
+Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. İlk yerel uygulama sürümü önce yanlışlıkla `0.5.0` olarak etiketlenmiş, arada `0.2.0`–`0.4.0` yayınları olmadığı için `0.2.0` olarak düzeltilmiştir; dönüştürme işlevleri korunmuştur. Bu düzeltmede iPhone cam teması yerel iOS Liquid Glass bileşenleriyle yenilenmiş ve yapımcı adı Arda Çobanoğlu olarak ayarlanmıştır. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
 
 ## 0.2.0 — 23 Eylül 2026
 
@@ -10,11 +10,12 @@ Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye d�
 - Dosya seçimi, kaynak dosyaya göre hedef biçim listesi, ön izleme ve çıktı kaydetme eklendi.
 - Görsel/PDF, bazı belge, ses ve video dönüşümleri macOS'un yerel araçlarıyla eklendi.
 - Açık, koyu ve saydamlığı ayarlanabilir Liquid Glass temaları eklendi.
-- Ayarlar sekmesine sürüm, kullanıcı tarafından düzenlenen yapımcı adı ve biçim durumları eklendi.
+- Ayarlar sekmesine sürüm, varsayılan Arda Çobanoğlu adı (Ayarlar’dan düzenlenebilir) ve biçim durumları eklendi.
 - İstenen bütün biçimlerin henüz desteklenmediği arayüzde ve belgelerde açıklandı.
 
 ### iPhone
 
+- Sistemin yerel Liquid Glass görünümü ve cam düğmeleri kullanıldı; cam yüzeylerin saydamlığı Ayarlar’dan değiştirilebilir.
 - SwiftUI arayüzü iPhone'a uyarlandı; dosya seçimi, ön izleme, dönüştürme, paylaşma ve ayarlar eklendi.
 - İşlemler cihaz üzerinde çalışacak şekilde kuruldu.
 - Fiziksel iPhone 16 Plus'a yüklenip MP4 → MOV dönüşümü doğrulandı.

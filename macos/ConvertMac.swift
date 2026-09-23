@@ -273,71 +273,10 @@ struct ConvertView: View {
     }
 }
 
-private struct FormatEntry: Identifiable {
-    let name: String
-    let status: String
-    let color: Color
-    var id: String { name }
-}
-
 struct SettingsView: View {
     @AppStorage("convert.maker") private var maker = "Arda Çobanoğlu"
     @AppStorage("convert.theme") private var theme = "light"
     @AppStorage("convert.glassTransparency") private var glassTransparency = 0.65
-    @State private var showImages = true
-    @State private var showDocuments = false
-
-    private let images: [FormatEntry] = [
-        .init(name: ".jpg / .jpeg", status: "Dönüştürme", color: .green),
-        .init(name: ".png", status: "Dönüştürme", color: .green),
-        .init(name: ".gif", status: "İlk kare", color: .orange),
-        .init(name: ".webp", status: "Kaynak", color: .blue),
-        .init(name: ".avif", status: "Dönüştürme", color: .green),
-        .init(name: ".heif / .heic", status: "Kısmi", color: .orange),
-        .init(name: ".svg", status: "Mac'e bağlı", color: .orange),
-        .init(name: ".ai", status: "Planlandı", color: .secondary),
-        .init(name: ".eps", status: "Planlandı", color: .secondary),
-        .init(name: ".cdr", status: "Planlandı", color: .secondary),
-        .init(name: ".tiff / .tif", status: "Dönüştürme", color: .green),
-        .init(name: ".bmp", status: "Dönüştürme", color: .green),
-        .init(name: ".tga", status: "Dönüştürme", color: .green),
-        .init(name: ".exr", status: "Dönüştürme", color: .green),
-        .init(name: ".raw", status: "Kamera bağlı", color: .orange),
-        .init(name: ".dng", status: "Kamera bağlı", color: .orange),
-        .init(name: ".cr2 / .cr3", status: "Kamera bağlı", color: .orange),
-        .init(name: ".nef", status: "Kamera bağlı", color: .orange),
-        .init(name: ".arw", status: "Kamera bağlı", color: .orange),
-        .init(name: ".psd", status: "Düzleştirilmiş", color: .orange),
-        .init(name: ".xcf", status: "Planlandı", color: .secondary),
-        .init(name: ".indd", status: "Planlandı", color: .secondary),
-        .init(name: ".ico", status: "Kaynak", color: .blue),
-        .init(name: ".jxl", status: "Kaynak", color: .blue),
-        .init(name: ".pdf", status: "Dönüştürme", color: .green),
-    ]
-
-    private let documents: [FormatEntry] = [
-        .init(name: ".pdf", status: "Görsel ↔ PDF", color: .orange),
-        .init(name: ".docx / .doc", status: "Dönüştürme", color: .green),
-        .init(name: ".xlsx / .xls", status: "Planlandı", color: .secondary),
-        .init(name: ".pptx / .ppt", status: "Planlandı", color: .secondary),
-        .init(name: ".txt", status: "Dönüştürme", color: .green),
-        .init(name: ".rtf", status: "Dönüştürme", color: .green),
-        .init(name: ".odt", status: "Dönüştürme", color: .green),
-        .init(name: ".ods", status: "Planlandı", color: .secondary),
-        .init(name: ".odp", status: "Planlandı", color: .secondary),
-        .init(name: ".csv", status: "Planlandı", color: .secondary),
-        .init(name: ".md", status: "Planlandı", color: .secondary),
-        .init(name: ".html / .htm", status: "Dönüştürme", color: .green),
-        .init(name: ".xml", status: "Planlandı", color: .secondary),
-        .init(name: ".epub", status: "Planlandı", color: .secondary),
-        .init(name: ".mobi", status: "Planlandı", color: .secondary),
-        .init(name: ".pages", status: "Planlandı", color: .secondary),
-        .init(name: ".numbers", status: "Planlandı", color: .secondary),
-        .init(name: ".key", status: "Planlandı", color: .secondary),
-        .init(name: ".wps", status: "Planlandı", color: .secondary),
-        .init(name: ".tex", status: "Planlandı", color: .secondary),
-    ]
-
     var body: some View {
         ZStack {
             LinearGradient(colors: theme == "dark"
@@ -357,13 +296,13 @@ struct SettingsView: View {
                                         in: RoundedRectangle(cornerRadius: 17))
                         VStack(alignment: .leading) {
                             Text("Ayarlar").font(.largeTitle.bold())
-                            Text("Uygulama bilgileri ve biçim kapsamı")
+                            Text("Uygulama bilgileri")
                                 .foregroundStyle(.secondary)
                         }
                     }
                     VStack(alignment: .leading, spacing: 14) {
                         Text("UYGULAMA").font(.caption.bold()).foregroundStyle(.indigo)
-                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.0")
+                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.1")
                         HStack {
                             Text("Yapımcı")
                             Spacer()
@@ -375,27 +314,6 @@ struct SettingsView: View {
                     }
                     .cardStyle(theme: theme, transparency: glassTransparency)
 
-                    Text("Dönüştürme ekranı yalnızca çalışan hedefleri listeler. ‘Kaynak’ ve ‘Mac'e bağlı’ işaretleri hedef biçim üretildiği anlamına gelmez.")
-                        .font(.subheadline)
-                        .padding(14)
-                        .background(Color.indigo.opacity(0.09),
-                                    in: RoundedRectangle(cornerRadius: 14))
-
-                    DisclosureGroup(isExpanded: $showImages) {
-                        formatList(images)
-                    } label: {
-                        Label("Görsel biçimleri (25)", systemImage: "photo")
-                            .font(.headline)
-                    }
-                    .cardStyle(theme: theme, transparency: glassTransparency)
-
-                    DisclosureGroup(isExpanded: $showDocuments) {
-                        formatList(documents)
-                    } label: {
-                        Label("Belge biçimleri (20)", systemImage: "doc.text")
-                            .font(.headline)
-                    }
-                    .cardStyle(theme: theme, transparency: glassTransparency)
                 }
                 .padding(28)
             }
@@ -409,24 +327,7 @@ struct SettingsView: View {
         }
     }
 
-    private func formatList(_ entries: [FormatEntry]) -> some View {
-        LazyVStack(spacing: 0) {
-            ForEach(entries) { entry in
-                HStack {
-                    Text(entry.name).font(.subheadline.monospaced())
-                    Spacer()
-                    Text(entry.status)
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(entry.color)
-                        .padding(.horizontal, 9).padding(.vertical, 5)
-                        .background(entry.color.opacity(0.12), in: Capsule())
-                }
-                .padding(.vertical, 6)
-                Divider()
-            }
-        }
-        .padding(.top, 12)
-    }
+
 }
 
 private extension View {

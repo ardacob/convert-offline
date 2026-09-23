@@ -160,7 +160,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Uygulama") {
-                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.5.0")
+                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.0")
                     TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
                 }
                 Section("Görünüm") {

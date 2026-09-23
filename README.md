@@ -1,31 +1,37 @@
-# Convert
+# Convert — çevrimdışı dosya dönüştürücü
 
-Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.5.0 deneme sürümünün** kaynak kodunu içerir.
+Flutter tabanlı ilk sürüm. Aynı Dart arayüzü Android (APK), iOS, macOS ve Windows için kullanılır. Dosyalar cihazda işlenir; uygulama bir sunucuya yükleme yapmaz.
 
-## Sürüm geçmişi
+## Desteklenen dönüşümler
 
-- [Değişiklik günlüğü](CHANGELOG.md): her doğrulanmış sürümdeki yenilikler ve sınırlamalar.
-- [Flutter 0.1.0+1 prototipi](archive/flutter-0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
-- **0.5.0:** `ios/` ve `macos/` altında doğrulanmış yerel uygulama kaynakları.
+| Kaynak | Hedef |
+| --- | --- |
+| JPG, JPEG, PNG, WebP, BMP | JPG, PNG, WebP, PDF |
+| PDF | Her sayfa için PNG |
+| MP3, WAV, M4A, AAC, FLAC, OGG | MP3, WAV, M4A, FLAC |
+| MP4, MOV, MKV, WebM, AVI | MP4, MOV, WebM, MP3, WAV |
 
-## Platformlar
+Kaynakla aynı uzantı hedef listesinde görünmez. Gerçek kodlayıcı desteği, seçilen FFmpeg paketinin platform derlemesine bağlıdır. Şifreli PDF, bozuk dosya veya nadir codec'ler hata verebilir. “Tüm uzantılar” vaat edilmez; dönüşüm çiftleri `lib/conversion_catalog.dart` içinde genişletilir.
 
-- **iPhone:** `ios/ConvertIOS.xcodeproj` dosyasını Xcode 27 ile açın. iOS 17 veya üstü hedeflenir. Signing & Capabilities bölümünde kendi Apple geliştirme takımınızı seçip cihazınıza çalıştırın.
-- **macOS:** `macos/ConvertMac.swift` kaynak dosyası. Xcode'da yeni bir macOS SwiftUI App projesi oluşturup varsayılan uygulama dosyasının yerine bu dosyayı koyarak derleyebilirsiniz. Apple Silicon Mac üzerinde denendi.
+## Geliştirme
 
-## Mevcut özellikler
+Flutter SDK 3.12 veya daha yeni Dart içeren bir sürüm, Android SDK ve Apple hedefleri için Xcode gerekir. Windows derlemesi Windows makinesinde alınır.
 
-- Dosya seçme, hedef biçim önerisi, ön izleme ve çıktı paylaşma/kaydetme.
-- Açık, koyu ve saydamlığı ayarlanabilir Liquid Glass temaları.
-- Ayarlar bölümünde sürüm, yerel olarak saklanan düzenlenebilir yapımcı adı ve biçim durumları.
-- Görsel/PDF dönüşümleri ve sistem çerçevelerinin desteklediği bazı ses/video dönüşümleri. Tam destek kaynak biçime ve işletim sisteminin yerel kodlayıcılarına bağlıdır.
+```sh
+cd convert_app
+flutter create --project-name convert_app --platforms=android,ios,macos,windows .
+flutter pub get
+flutter run -d macos
+```
 
-**Convertio biçim eşitliği henüz yoktur.** MP3 çıktısı, pek çok ofis/özel biçim ve Windows/Android uygulaması bu sürümde bulunmaz. Ayarlar ekranındaki biçim listesi destek planını gösterir; listede görünmek çalışan bir dönüşüm anlamına gelmez. Ayrıntılar için [FORMAT_SCOPE.md](FORMAT_SCOPE.md) dosyasına bakın.
+APK: `flutter build apk --release`. iOS: `flutter build ios --release`. macOS: `flutter build macos --release`. Windows: `flutter build windows --release` (Windows üzerinde).
 
-## Gizlilik
+FFmpeg eklentisi için Android minSdk 26, iOS 13 ve macOS 13 ayarlanmalıdır. iOS simulator mimari dışlama ayarları için [eklenti kurulum yönergesini](https://pub.dev/packages/ffmpeg_kit_extended_flutter) izleyin. macOS dosya seçicinin sandbox yetkileri ve iOS imzalama ayarları dağıtımdan önce tamamlanmalıdır.
 
-Dönüştürme cihazda yapılır; dosyalar bir sunucuya yüklenmez.
+Çıktılar uygulamanın belgeler klasöründeki `Convert` dizinine yazılır. Arayüzdeki **Dosyaları paylaş / kaydet** düğmesi, mobil cihazlarda Dosyalar uygulamasına dışa aktarmayı sağlar.
 
-## Dağıtım
+## Durum ve doğrulama
 
-Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi Apple Developer kimliğiyle notarize edilmemiştir ve bu depodaki kaynakla ayrıca derlenmelidir.
+Bu çalışma alanında Flutter/Dart SDK olmadığı için `flutter pub get`, analiz, test ve dört platformda derleme çalıştırılamadı. Kaynak proje hazırlanmıştır; derlenmiş APK/IPA/EXE teslim edilmemiştir. İlk derlemede platform ayarları ve FFmpeg yerel kitaplıkları doğrulanmalıdır.
+
+FFmpeg yerel paketinin lisans ve uygulama mağazası koşulları dağıtımdan önce incelenmelidir. Yapılandırma GPL olmayan `video` paketini seçer.

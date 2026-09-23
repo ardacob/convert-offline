@@ -81,10 +81,10 @@ struct ConverterView: View {
         ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
                         HStack(spacing: 12) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                                .font(.title2.bold()).foregroundStyle(.white)
+                            Image("ConvertLogo")
+                                .resizable().scaledToFit()
                                 .frame(width: 52, height: 52)
-                                .background(Color.indigo.gradient, in: RoundedRectangle(cornerRadius: 16))
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
                             VStack(alignment: .leading) {
                                 Text("Convert").font(.largeTitle.bold())
                                 Text("Çevrimdışı dosya dönüştürme").font(.subheadline).foregroundStyle(.secondary)
@@ -170,7 +170,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Uygulama") {
-                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.2")
+                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.3")
                     TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
                 }
                 Section("Görünüm") {

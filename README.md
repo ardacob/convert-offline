@@ -2,6 +2,12 @@
 
 Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.5.0 deneme sürümünün** kaynak kodunu içerir.
 
+## Sürüm geçmişi
+
+- [Değişiklik günlüğü](CHANGELOG.md): her doğrulanmış sürümdeki yenilikler ve sınırlamalar.
+- [Flutter 0.1.0+1 prototipi](archive/flutter-0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
+- **0.5.0:** `ios/` ve `macos/` altında doğrulanmış yerel uygulama kaynakları.
+
 ## Platformlar
 
 - **iPhone:** `ios/ConvertIOS.xcodeproj` dosyasını Xcode 27 ile açın. iOS 17 veya üstü hedeflenir. Signing & Capabilities bölümünde kendi Apple geliştirme takımınızı seçip cihazınıza çalıştırın.

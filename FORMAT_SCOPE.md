@@ -4,7 +4,7 @@
 
 Bu Mac uygulaması yerel macOS motorlarıyla çalışır: ImageIO (görsel), PDFKit (PDF), `textutil` (belge), AVFoundation/Core Audio (ses/video). Uygulama yalnızca seçili dosya için yerel motorda bulunan hedefleri listeler. Dönüşümlerde dosya sunucuya yüklenmez.
 
-Ayarlar sekmesindeki biçim listesi istenen kapsamı izler. Yeşil **Dönüştürme** mevcut bir dönüşüm yolunu, mavi **Kaynak** yalnızca okumayı, turuncu **Kısmi/Mac'e bağlı** platforma veya içerik türüne bağlı çalışmayı, gri **Planlandı** henüz desteklenmeyen biçimi gösterir. Listeye eklenmiş olmak tek başına dönüştürme desteği anlamına gelmez.
+Uygulama, dosya seçildikten sonra yalnızca o dosya için çalışabilen hedef biçimleri gösterir. Bu belgedeki kapsam planı uygulama içindeki seçenek listesi değildir.
 
 Tam Convertio eşitliği için her biçimin yalnızca uzantısını listelemek yetmez. Gerekli çözücüler, kodlayıcılar, kalite ve kayıpsızlık testleri, özel biçim lisansları, macOS/iOS/Android/Windows derlemeleri ve her kaynak–hedef çiftinin doğrulanması gerekir. Özellikle CAD, e-kitap, font, arşiv, 3D, nadir video codec'leri ve eski ofis biçimleri ayrı motorlar ister. Bazı özel biçimler için çevrimdışı, yasal olarak dağıtılabilir kodlayıcı bulunmayabilir.
 

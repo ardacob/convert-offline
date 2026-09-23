@@ -1,12 +1,12 @@
 # Convert
 
-Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.5.0 deneme sürümünün** kaynak kodunu içerir.
+Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.2.0 deneme sürümünün** kaynak kodunu içerir.
 
 ## Sürüm geçmişi
 
 - [Değişiklik günlüğü](CHANGELOG.md): her doğrulanmış sürümdeki yenilikler ve sınırlamalar.
 - [v0.1.0 — Flutter 0.1.0+1 prototipi](https://github.com/ardacob/convert-offline/releases/tag/v0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
-- [v0.5.0 — macOS ve iPhone](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0): `ios/` ve `macos/` kaynakları; macOS DMG sürüm eki.
+- [v0.2.0 — macOS ve iPhone](https://github.com/ardacob/convert-offline/releases/tag/v0.2.0): `ios/` ve `macos/` kaynakları; macOS DMG sürüm eki.
 
 ## Platformlar
 
@@ -28,4 +28,4 @@ Dönüştürme cihazda yapılır; dosyalar bir sunucuya yüklenmez.
 
 ## Dağıtım
 
-Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi [v0.5.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0) bulunur; Apple Developer kimliğiyle notarize edilmemiştir.
+Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi [v0.2.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.2.0) bulunur; Apple Developer kimliğiyle notarize edilmemiştir.

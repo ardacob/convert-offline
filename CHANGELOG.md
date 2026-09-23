@@ -2,6 +2,11 @@
 
 Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. İlk yerel uygulama sürümü önce yanlışlıkla `0.5.0` olarak etiketlenmiş, arada `0.2.0`–`0.4.0` yayınları olmadığı için `0.2.0` olarak düzeltilmiştir; dönüştürme işlevleri korunmuştur. Bu düzeltmede iPhone cam teması yerel iOS Liquid Glass bileşenleriyle yenilenmiş ve yapımcı adı Arda Çobanoğlu olarak ayarlanmıştır. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
 
+## 0.2.3 — 24 Eylül 2026
+
+- Yeni logo macOS ve iPhone uygulamalarının Dönüştür ekranındaki başlıklara eklendi.
+- Uygulama simgeleri korunarak Mac DMG ve iPhone uygulaması yeniden paketlendi.
+
 ## 0.2.2 — 24 Eylül 2026
 
 - Convert için iki dosya ve dönüşüm oklarından oluşan yeni mavi uygulama logosu hazırlandı.

@@ -5,8 +5,8 @@ Convert, dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştür
 ## Sürüm geçmişi
 
 - [Değişiklik günlüğü](CHANGELOG.md): her doğrulanmış sürümdeki yenilikler ve sınırlamalar.
-- [Flutter 0.1.0+1 prototipi](archive/flutter-0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
-- **0.5.0:** `ios/` ve `macos/` altında doğrulanmış yerel uygulama kaynakları.
+- [v0.1.0 — Flutter 0.1.0+1 prototipi](https://github.com/ardacob/convert-offline/releases/tag/v0.1.0): ilk, derlenmemiş çok platformlu kaynak taslağı.
+- [v0.5.0 — macOS ve iPhone](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0): `ios/` ve `macos/` kaynakları; macOS DMG sürüm eki.
 
 ## Platformlar
 
@@ -28,4 +28,4 @@ Dönüştürme cihazda yapılır; dosyalar bir sunucuya yüklenmez.
 
 ## Dağıtım
 
-Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi Apple Developer kimliğiyle notarize edilmemiştir ve bu depodaki kaynakla ayrıca derlenmelidir.
+Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi [v0.5.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0) bulunur; Apple Developer kimliğiyle notarize edilmemiştir.

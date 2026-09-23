@@ -23,7 +23,7 @@ Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye d�
 ### Kod ve paketler
 
 - Kaynaklar `macos/` ve `ios/` dizinlerinde tutulur.
-- macOS DMG bu depoya eklenmedi; kaynak kodu derlenebilir durumdadır. iOS uygulaması geliştirme imzasıyla cihaza yüklenmiştir, genel dağıtım paketi değildir.
+- macOS DMG Git kaynak ağacına eklenmedi; [v0.5.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0) yayımlandı. Kaynak kodu derlenebilir durumdadır. iOS uygulaması geliştirme imzasıyla cihaza yüklenmiştir, genel dağıtım paketi değildir.
 
 ## 0.1.0+1 — 23 Eylül 2026 — Flutter prototipi
 

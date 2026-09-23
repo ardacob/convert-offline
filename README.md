@@ -1,6 +1,6 @@
 # Convert
 
-Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo **0.2.3 deneme sürümünün** kaynak kodunu içerir.
+Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo macOS **0.2.4** ve iPhone **0.2.3** deneme sürümlerinin kaynak kodunu içerir.
 
 ## Sürüm geçmişi
 
@@ -10,6 +10,7 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 - [v0.2.1 — arayüz düzenlemesi](https://github.com/ardacob/convert-offline/releases/tag/v0.2.1): ayarlardan statik biçim listeleri kaldırıldı; hedefler seçilen dosyaya göre gösteriliyor.
 - [v0.2.2 — yeni uygulama logosu](https://github.com/ardacob/convert-offline/releases/tag/v0.2.2): iPhone ve macOS uygulama simgeleri yenilendi.
 - [v0.2.3 — uygulama içi logo](https://github.com/ardacob/convert-offline/releases/tag/v0.2.3): yeni logo Dönüştür ekranlarının başlıklarına eklendi.
+- [v0.2.4 — macOS tema ayarları](https://github.com/ardacob/convert-offline/releases/tag/v0.2.4): tema seçimi Dönüştür ekranından Ayarlar sekmesine taşındı.
 
 ## Platformlar
 
@@ -31,4 +32,4 @@ Dönüştürme cihazda yapılır; dosyalar bir sunucuya yüklenmez.
 
 ## Dağıtım
 
-Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi [v0.2.3 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.2.3) bulunur; Apple Developer kimliğiyle notarize edilmemiştir.
+Bu depo kaynak kodu içerir. İmzalı iOS uygulaması geliştirme takımınıza ve cihazınıza bağlıdır. macOS DMG paketi [v0.2.4 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.2.4) bulunur; Apple Developer kimliğiyle notarize edilmemiştir.

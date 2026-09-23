@@ -1,8 +1,8 @@
 # Değişiklik günlüğü
 
-Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
+Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. İlk yerel uygulama sürümü önce yanlışlıkla `0.5.0` olarak etiketlenmiş, arada `0.2.0`–`0.4.0` yayınları olmadığı için `0.2.0` olarak düzeltilmiştir; uygulama özellikleri değişmemiştir. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
 
-## 0.5.0 — 23 Eylül 2026
+## 0.2.0 — 23 Eylül 2026
 
 ### macOS
 
@@ -23,7 +23,7 @@ Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye d�
 ### Kod ve paketler
 
 - Kaynaklar `macos/` ve `ios/` dizinlerinde tutulur.
-- macOS DMG Git kaynak ağacına eklenmedi; [v0.5.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.5.0) yayımlandı. Kaynak kodu derlenebilir durumdadır. iOS uygulaması geliştirme imzasıyla cihaza yüklenmiştir, genel dağıtım paketi değildir.
+- macOS DMG Git kaynak ağacına eklenmedi; [v0.2.0 sürüm ekinde](https://github.com/ardacob/convert-offline/releases/tag/v0.2.0) yayımlandı. Kaynak kodu derlenebilir durumdadır. iOS uygulaması geliştirme imzasıyla cihaza yüklenmiştir, genel dağıtım paketi değildir.
 
 ## 0.1.0+1 — 23 Eylül 2026 — Flutter prototipi
 
@@ -34,7 +34,7 @@ Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye d�
 
 ## Ara geliştirme notları
 
-0.1.0 prototipinden 0.5.0'a geçerken birkaç numarasız macOS test derlemesi oluşturuldu. Bunlar ayrı yayımlanmış sürümler değildir. Her birine ait kaynak anlık görüntüsü bulunmadığından sürüm etiketi veya doğrulanmamış özellik listesi eklenmedi. 0.5.0 öncesindeki görünüm, tema ve dönüştürme isteklerinin sonucu yukarıdaki 0.5.0 kaydında açıklanır.
+0.1.0 prototipinden 0.2.0'a geçerken birkaç numarasız macOS test derlemesi oluşturuldu. Bunlar ayrı yayımlanmış sürümler değildir. Her birine ait kaynak anlık görüntüsü bulunmadığından sürüm etiketi veya doğrulanmamış özellik listesi eklenmedi. 0.2.0 öncesindeki görünüm, tema ve dönüştürme isteklerinin sonucu yukarıdaki 0.2.0 kaydında açıklanır.
 
 ## Bundan sonraki sürüm kayıtları
 

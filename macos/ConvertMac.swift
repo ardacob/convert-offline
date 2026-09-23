@@ -281,7 +281,7 @@ private struct FormatEntry: Identifiable {
 }
 
 struct SettingsView: View {
-    @AppStorage("convert.maker") private var maker = ""
+    @AppStorage("convert.maker") private var maker = "Arda Çobanoğlu"
     @AppStorage("convert.theme") private var theme = "light"
     @AppStorage("convert.glassTransparency") private var glassTransparency = 0.65
     @State private var showImages = true
@@ -402,6 +402,11 @@ struct SettingsView: View {
         }
         .fontDesign(.default)
         .preferredColorScheme(theme == "dark" ? .dark : .light)
+        .onAppear {
+            if maker.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                maker = "Arda Çobanoğlu"
+            }
+        }
     }
 
     private func formatList(_ entries: [FormatEntry]) -> some View {

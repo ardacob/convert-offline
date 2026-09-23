@@ -60,11 +60,20 @@ struct ConvertView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack(spacing: 14) {
-                        Image(systemName: "arrow.triangle.2.circlepath")
-                            .font(.system(size: 28, weight: .semibold))
-                            .frame(width: 58, height: 58)
-                            .foregroundStyle(.white)
-                            .background(Color.indigo.gradient, in: RoundedRectangle(cornerRadius: 18))
+                        Group {
+                            if let logoURL = Bundle.main.url(forResource: "ConvertLogo", withExtension: "png"),
+                               let logo = NSImage(contentsOf: logoURL) {
+                                Image(nsImage: logo).resizable().scaledToFit()
+                            } else {
+                                Image(systemName: "arrow.triangle.2.circlepath")
+                                    .font(.system(size: 28, weight: .semibold))
+                                    .foregroundStyle(.white)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .background(Color.indigo.gradient)
+                            }
+                        }
+                        .frame(width: 58, height: 58)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                         VStack(alignment: .leading, spacing: 3) {
                             Text("Convert").font(.system(size: 30, weight: .bold))
                             Text("Dosyalarını hızlı ve çevrimdışı dönüştür")
@@ -302,7 +311,7 @@ struct SettingsView: View {
                     }
                     VStack(alignment: .leading, spacing: 14) {
                         Text("UYGULAMA").font(.caption.bold()).foregroundStyle(.indigo)
-                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.2")
+                        LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.3")
                         HStack {
                             Text("Yapımcı")
                             Spacer()

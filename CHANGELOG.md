@@ -2,6 +2,12 @@
 
 Bu kayıt, elde kalan kaynak dosyaları ve doğrulanmış teslimlerden geriye dönük oluşturuldu. İlk yerel uygulama sürümü önce yanlışlıkla `0.5.0` olarak etiketlenmiş, arada `0.2.0`–`0.4.0` yayınları olmadığı için `0.2.0` olarak düzeltilmiştir; dönüştürme işlevleri korunmuştur. Bu düzeltmede iPhone cam teması yerel iOS Liquid Glass bileşenleriyle yenilenmiş ve yapımcı adı Arda Çobanoğlu olarak ayarlanmıştır. Kayıtlı olmayan ara kaynak durumları veya kesinleştirilemeyen değişiklikler sürüm olarak sunulmaz. Bundan sonraki her yayın, kendi kaynak anlık görüntüsü, sürüm etiketi ve değişiklik notuyla kaydedilecektir.
 
+## iOS 0.2.4 — 1 Ekim 2026
+
+- iPhone sürümü 0.2.4 (derleme 6) olarak güncellendi ve bağlı iPhone 16 Plus üzerinde açıldı.
+- Ayarlar sekmesinde Görünüm bölümü üste alındı; Açık, Koyu ve Liquid Glass tema seçenekleri ile saydamlık ayarı korunuyor.
+- Bu kaynak durumu `ios-v0.2.4` etiketiyle kaydedildi; daha önce yayımlanan macOS `v0.2.4` etiketinin geçmişi değiştirilmedi.
+
 ## 0.2.4 — 24 Eylül 2026
 
 - macOS tema seçimi ve Liquid Glass saydamlık ayarı Dönüştür ekranından Ayarlar sekmesine taşındı.

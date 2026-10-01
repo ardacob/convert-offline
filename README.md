@@ -1,6 +1,6 @@
 # Convert
 
-Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo macOS **0.2.4** ve iPhone **0.2.3** deneme sürümlerinin kaynak kodunu içerir.
+Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo macOS **0.2.4** ve iPhone **0.2.4** deneme sürümlerinin kaynak kodunu içerir.
 
 ## Sürüm geçmişi
 
@@ -11,6 +11,7 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 - [v0.2.2 — yeni uygulama logosu](https://github.com/ardacob/convert-offline/releases/tag/v0.2.2): iPhone ve macOS uygulama simgeleri yenilendi.
 - [v0.2.3 — uygulama içi logo](https://github.com/ardacob/convert-offline/releases/tag/v0.2.3): yeni logo Dönüştür ekranlarının başlıklarına eklendi.
 - [v0.2.4 — macOS tema ayarları](https://github.com/ardacob/convert-offline/releases/tag/v0.2.4): tema seçimi Dönüştür ekranından Ayarlar sekmesine taşındı.
+- [ios-v0.2.4 — iPhone uyarlaması](https://github.com/ardacob/convert-offline/releases/tag/ios-v0.2.4): iPhone sürümü 0.2.4 olarak derlendi; Ayarlar bölümünde tema denetimi üste alındı.
 
 ## Platformlar
 

@@ -169,10 +169,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Uygulama") {
-                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.3")
-                    TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
-                }
                 Section("Görünüm") {
                     Picker("Tema", selection: $theme) {
                         Text("Açık").tag("light")
@@ -186,6 +182,10 @@ struct SettingsView: View {
                             Text("\(Int(glassTransparency * 100))%")
                         }
                     }
+                }
+                Section("Uygulama") {
+                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.4")
+                    TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
                 }
                 Section {
                     Text("Yalnızca Dönüştür sekmesinde gösterilen hedefler çalışır. Dosyalar iPhone'da işlenir.")

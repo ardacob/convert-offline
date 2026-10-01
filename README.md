@@ -1,6 +1,6 @@
 # Convert
 
-Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo macOS **0.2.4** ve iPhone **0.2.4** deneme sürümlerinin kaynak kodunu içerir.
+Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve internet bağlantısı gerektirmeden dönüştüren bir macOS ve iPhone uygulamasıdır. Bu depo macOS **0.2.4** ve iPhone **0.2.5** deneme sürümlerinin kaynak kodunu içerir.
 
 ## Sürüm geçmişi
 
@@ -12,6 +12,7 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 - [v0.2.3 — uygulama içi logo](https://github.com/ardacob/convert-offline/releases/tag/v0.2.3): yeni logo Dönüştür ekranlarının başlıklarına eklendi.
 - [v0.2.4 — macOS tema ayarları](https://github.com/ardacob/convert-offline/releases/tag/v0.2.4): tema seçimi Dönüştür ekranından Ayarlar sekmesine taşındı.
 - [ios-v0.2.4 — iPhone uyarlaması](https://github.com/ardacob/convert-offline/releases/tag/ios-v0.2.4): iPhone sürümü 0.2.4 olarak derlendi; Ayarlar bölümünde tema denetimi üste alındı.
+- [ios-v0.2.5 — Galeri ve toplu görsel dönüşümü](https://github.com/ardacob/convert-offline/releases/tag/ios-v0.2.5): Galeri'den veya Dosyalar'dan aynı kaynak biçimindeki birden çok görsel seçme, HEIC → JPG dahil toplu dönüştürme ve sonuçları birlikte paylaşma.
 
 ## Platformlar
 
@@ -20,7 +21,7 @@ Convert, Arda Çobanoğlu tarafından geliştirilen; dosyaları cihazda ve inter
 
 ## Mevcut özellikler
 
-- Dosya seçme, hedef biçim önerisi, ön izleme ve çıktı paylaşma/kaydetme.
+- Dosya seçme, hedef biçim önerisi, ön izleme ve çıktı paylaşma/kaydetme. iPhone'da Galeri ve Dosyalar üzerinden aynı kaynak biçimindeki görseller topluca seçilebilir.
 - Açık, koyu ve saydamlığı ayarlanabilir Liquid Glass temaları.
 - Ayarlar bölümünde sürüm, varsayılanı Arda Çobanoğlu olan düzenlenebilir yapımcı adı.
 - Görsel/PDF dönüşümleri ve sistem çerçevelerinin desteklediği bazı ses/video dönüşümleri. Tam destek kaynak biçime ve işletim sisteminin yerel kodlayıcılarına bağlıdır.

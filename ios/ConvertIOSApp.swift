@@ -4,6 +4,7 @@ import PDFKit
 import ImageIO
 import AVFoundation
 import UniformTypeIdentifiers
+import PhotosUI
 
 @main
 struct ConvertIOSApp: App {
@@ -25,16 +26,25 @@ struct ConverterView: View {
     @Environment(\.colorScheme) private var systemColorScheme
     @AppStorage("convert.theme") private var theme = "glass"
     @AppStorage("convert.glassTransparency") private var glassTransparency = 0.0
-    @State private var source: URL?
+    @State private var sources: [URL] = []
+    @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var displayName = ""
     @State private var preview: UIImage?
     @State private var target = ""
-    @State private var result: URL?
+    @State private var results: [URL] = []
     @State private var status = "Dosya seçin"
     @State private var picking = false
     @State private var busy = false
 
-    private var choices: [String] { source.map { FormatCatalog.choices(for: $0) } ?? [] }
+    private var source: URL? { sources.first }
+    private var choices: [String] {
+        guard let first = sources.first else { return [] }
+        let firstChoices = FormatCatalog.choices(for: first)
+        let common = sources.dropFirst().reduce(Set(firstChoices)) {
+            $0.intersection(FormatCatalog.choices(for: $1))
+        }
+        return firstChoices.filter { common.contains($0) }
+    }
     private var dark: Bool { theme == "dark" || (theme == "glass" && systemColorScheme == .dark) }
 
     var body: some View {
@@ -54,23 +64,28 @@ struct ConverterView: View {
                 converterContent
             }
             .navigationTitle("Convert")
-            .fileImporter(isPresented: $picking, allowedContentTypes: [.item]) { response in
+            .fileImporter(isPresented: $picking, allowedContentTypes: [.item], allowsMultipleSelection: true) { response in
                 do {
                     let picked = try response.get()
-                    let scoped = picked.startAccessingSecurityScopedResource()
-                    defer { if scoped { picked.stopAccessingSecurityScopedResource() } }
+                    guard !picked.isEmpty else { return }
                     let tempFolder = FileManager.default.temporaryDirectory
                         .appendingPathComponent(UUID().uuidString, isDirectory: true)
                     try FileManager.default.createDirectory(at: tempFolder, withIntermediateDirectories: true)
-                    let local = tempFolder.appendingPathComponent(picked.lastPathComponent)
-                    try FileManager.default.copyItem(at: picked, to: local)
-                    source = local
-                    displayName = picked.lastPathComponent
-                    preview = FormatCatalog.preview(for: local)
-                    target = FormatCatalog.choices(for: local).first ?? ""
-                    result = nil
-                    status = "Dönüştürmeye hazır"
+                    var locals: [URL] = []
+                    for (index, file) in picked.enumerated() {
+                        let scoped = file.startAccessingSecurityScopedResource()
+                        defer { if scoped { file.stopAccessingSecurityScopedResource() } }
+                        let local = tempFolder.appendingPathComponent("\(index + 1)_\(file.lastPathComponent)")
+                        try FileManager.default.copyItem(at: file, to: local)
+                        locals.append(local)
+                    }
+                    try validateBatch(locals)
+                    useSources(locals, name: picked.count == 1 ? picked[0].lastPathComponent : "\(picked.count) dosya seçildi")
                 } catch { status = "Dosya açılamadı: \(error.localizedDescription)" }
+            }
+            .onChange(of: selectedPhotos) { _, items in
+                guard !items.isEmpty else { return }
+                Task { await importPhotos(items) }
             }
         }
         .fontDesign(.default)
@@ -109,6 +124,12 @@ struct ConverterView: View {
                                     .frame(maxWidth: .infinity)
                             }
                             .secondaryActionStyle(theme: theme).tint(.indigo).disabled(busy)
+                            PhotosPicker(selection: $selectedPhotos, maxSelectionCount: nil,
+                                         matching: .images, preferredItemEncoding: .current) {
+                                Label("Galeriden görsel seç", systemImage: "photo.on.rectangle.angled")
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .secondaryActionStyle(theme: theme).tint(.indigo).disabled(busy)
                         }
                         .cardStyle(theme: theme, transparency: glassTransparency)
 
@@ -123,7 +144,7 @@ struct ConverterView: View {
                                 }
                                 .pickerStyle(.menu)
                                 Button { Task { await convert() } } label: {
-                                    Label("Dönüştür", systemImage: "arrow.triangle.2.circlepath")
+                                    Label(sources.count > 1 ? "\(sources.count) dosyayı dönüştür" : "Dönüştür", systemImage: "arrow.triangle.2.circlepath")
                                         .frame(maxWidth: .infinity)
                                 }
                                 .primaryActionStyle(theme: theme).tint(.indigo)
@@ -135,9 +156,9 @@ struct ConverterView: View {
 
                         VStack(alignment: .leading, spacing: 12) {
                             Text(status).font(.subheadline).textSelection(.enabled)
-                            if let result {
-                                ShareLink(item: result) {
-                                    Label("Paylaş / Dosyalara Kaydet", systemImage: "square.and.arrow.up")
+                            if !results.isEmpty {
+                                ShareLink(items: results) {
+                                    Label(results.count > 1 ? "\(results.count) dosyayı paylaş / kaydet" : "Paylaş / Dosyalara Kaydet", systemImage: "square.and.arrow.up")
                                 }
                                 .secondaryActionStyle(theme: theme)
                             }
@@ -149,16 +170,81 @@ struct ConverterView: View {
     }
 
     @MainActor private func convert() async {
-        guard let source else { return }
+        guard !sources.isEmpty, choices.contains(target) else { return }
         busy = true
-        result = nil
+        results = []
         status = "Dönüştürülüyor…"
-        do {
-            let destination = try await ConversionEngine.convert(source, target: target)
-            result = destination
-            status = "Tamamlandı: \(destination.lastPathComponent)"
-        } catch { status = "Hata: \(error.localizedDescription)" }
+        var converted: [URL] = []
+        var failures = 0
+        for (index, source) in sources.enumerated() {
+            status = "Dönüştürülüyor: \(index + 1)/\(sources.count)"
+            do { converted.append(try await ConversionEngine.convert(source, target: target)) }
+            catch { failures += 1 }
+        }
+        results = converted
+        if failures == 0 {
+            status = converted.count == 1 ? "Tamamlandı: \(converted[0].lastPathComponent)" : "\(converted.count) dosya dönüştürüldü."
+        } else {
+            status = "\(converted.count) dosya dönüştürüldü, \(failures) dosya başarısız oldu."
+        }
         busy = false
+    }
+
+    @MainActor private func importPhotos(_ items: [PhotosPickerItem]) async {
+        busy = true
+        status = "Galeriden görseller yükleniyor…"
+        defer { busy = false; selectedPhotos = [] }
+        do {
+            let folder = FileManager.default.temporaryDirectory
+                .appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            var locals: [URL] = []
+            var selectedFormat: String?
+            for (index, item) in items.enumerated() {
+                guard let data = try await item.loadTransferable(type: Data.self),
+                      let format = FormatCatalog.imageFormat(data: data) else {
+                    throw BatchError.unreadable
+                }
+                if let selectedFormat, selectedFormat != format { throw BatchError.mixedFormats }
+                selectedFormat = format
+                let url = folder.appendingPathComponent(String(format: "Galeri_%03d.%@", index + 1, format))
+                try data.write(to: url, options: .atomic)
+                locals.append(url)
+            }
+            try validateBatch(locals)
+            useSources(locals, name: "\(locals.count) görsel seçildi (\(selectedFormat?.uppercased() ?? ""))")
+        } catch { status = "Galeri seçimi başarısız: \(error.localizedDescription)" }
+    }
+
+    private func validateBatch(_ urls: [URL]) throws {
+        guard urls.count > 1 else { return }
+        guard let first = urls.first, let format = FormatCatalog.imageFormat(url: first) else {
+            throw BatchError.imagesOnly
+        }
+        for url in urls.dropFirst() {
+            guard let next = FormatCatalog.imageFormat(url: url) else { throw BatchError.imagesOnly }
+            guard next == format else { throw BatchError.mixedFormats }
+        }
+    }
+
+    private func useSources(_ urls: [URL], name: String) {
+        sources = urls
+        displayName = name
+        preview = urls.first.flatMap { FormatCatalog.preview(for: $0) }
+        target = choices.first ?? ""
+        results = []
+        status = "Dönüştürmeye hazır"
+    }
+}
+
+private enum BatchError: LocalizedError {
+    case unreadable, imagesOnly, mixedFormats
+    var errorDescription: String? {
+        switch self {
+        case .unreadable: "Görsel okunamadı veya biçimi belirlenemedi."
+        case .imagesOnly: "Çoklu seçim yalnızca görselleri destekliyor."
+        case .mixedFormats: "Çoklu seçimde tüm görseller aynı kaynak biçimde olmalı."
+        }
     }
 }
 
@@ -184,7 +270,7 @@ struct SettingsView: View {
                     }
                 }
                 Section("Uygulama") {
-                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.4")
+                    LabeledContent("Sürüm", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.5")
                     TextField("Yapımcı", text: $maker, prompt: Text("Adınızı yazın"))
                 }
                 Section {
@@ -244,6 +330,28 @@ private extension View {
 }
 
 enum FormatCatalog {
+    static func imageFormat(data: Data) -> String? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil),
+              CGImageSourceGetCount(source) > 0,
+              let type = CGImageSourceGetType(source),
+              let ext = UTType(type as String)?.preferredFilenameExtension else { return nil }
+        return canonicalImageExtension(ext)
+    }
+    static func imageFormat(url: URL) -> String? {
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              CGImageSourceGetCount(source) > 0,
+              let type = CGImageSourceGetType(source),
+              let ext = UTType(type as String)?.preferredFilenameExtension else { return nil }
+        return canonicalImageExtension(ext)
+    }
+    private static func canonicalImageExtension(_ ext: String) -> String {
+        switch ext.lowercased() {
+        case "jpeg", "jpe": "jpg"
+        case "heif": "heic"
+        case "tif": "tiff"
+        default: ext.lowercased()
+        }
+    }
     static let imageOutputTypes: [(String, String)] = [
         ("jpg", "public.jpeg"), ("png", "public.png"), ("tiff", "public.tiff"),
         ("gif", "com.compuserve.gif"), ("bmp", "com.microsoft.bmp"),
